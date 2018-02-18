@@ -6,10 +6,14 @@ import csv
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
+    smsFirst = texts[0]
+    print("First record of texts, {} texts {} at time {}".format(smsFirst[0], smsFirst[1], smsFirst[2]))
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+    callLast = calls[-1]
+    print("Last record of calls, {} calls {} at time {}, lasting {} seconds".format(callLast[0], callLast[1], callLast[2], callLast[3]))
 
 
 """
