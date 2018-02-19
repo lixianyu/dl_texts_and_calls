@@ -3,13 +3,23 @@
 你将在以后的课程中了解更多有关读取文件的知识。
 """
 import csv
-with open('texts.csv', 'r') as f:
-    reader = csv.reader(f)
-    texts = list(reader)
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+    aDict = {}
+    for call in calls:
+        if call[0] in aDict:
+            aDict[call[0]] += int(call[-1])
+        else:
+            aDict[call[0]] = int(call[-1])
+        if call[1] in aDict:
+            aDict[call[1]] += int(call[-1])
+        else:
+            aDict[call[1]] = int(call[-1])
+    maxKey = max(aDict, key = aDict.get)
+    print("{} spent the longest time, {} seconds, on the phone during September 2016".format(maxKey, aDict[maxKey]))
+
 
 """
 任务2: 哪个电话号码的通话总时间最长? 不要忘记，用于接听电话的时间也是通话时间的一部分。
