@@ -3,14 +3,33 @@
 你将在以后的课程中了解更多有关读取文件的知识。
 """
 import csv
-
-with open('texts.csv', 'r') as f:
-    reader = csv.reader(f)
-    texts = list(reader)
-
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+
+#第一部分
+zhuJiaoBangalore = 0
+beiJiaoBangalore = 0
+aSet = set()
+for aCall in calls:
+    if aCall[0].startswith('(080)'):
+        zhuJiaoBangalore += 1
+        if aCall[1].startswith('('):
+            idx = aCall[1].find(')')
+            if idx == -1: #Something was wrong
+                continue
+            daiHao = aCall[1][1:idx]
+            aSet.add(daiHao)
+            if daiHao == '080':
+                beiJiaoBangalore += 1
+        else:
+            daiHao = aCall[1][0:4]
+            aSet.add(daiHao)
+daiHaoList = sorted(list(aSet))
+print("The numbers called by people in Bangalore have codes:\n" + "\n".join(daiHaoList))
+
+#第二部分
+print("%.2f%% percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore." % (beiJiaoBangalore/zhuJiaoBangalore*100))
 
 """
 任务3:
